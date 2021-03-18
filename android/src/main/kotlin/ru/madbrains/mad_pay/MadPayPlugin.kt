@@ -181,15 +181,19 @@ class MadPayPlugin : FlutterPlugin, MethodCallHandler, PluginRegistry.ActivityRe
                 Activity.RESULT_OK -> {
                     data?.let {
                         PaymentData.getFromIntent(it)?.let { paymentData ->
-                            val paymentDataJSONObject = JSONObject(paymentData.toJson())
-                            (paymentDataJSONObject["paymentMethodData"] as? JSONObject)?.let { paymentMethodData ->
-                                (paymentMethodData["tokenizationData"] as? JSONObject)?.let { tokenizationData ->
-                                    (tokenizationData["token"] as? String)?.let { token ->
-                                        val response: Map<String, String> = mapOf(TOKEN to token)
-                                        invokeSuccessResult(response)
-                                    }
-                                }
-                            }
+
+                            val response: Map<String, String> = mapOf(response to paymentData.toJson())
+                            invokeSuccessResult(response)
+                            
+//                            val paymentDataJSONObject = JSONObject(paymentData.toJson())
+//                            (paymentDataJSONObject["paymentMethodData"] as? JSONObject)?.let { paymentMethodData ->
+//                                (paymentMethodData["tokenizationData"] as? JSONObject)?.let { tokenizationData ->
+//                                    (tokenizationData["token"] as? String)?.let { token ->
+//                                        val response: Map<String, String> = mapOf(TOKEN to token)
+//                                        invokeSuccessResult(response)
+//                                    }
+//                                }
+//                            }
                         }
                     }
                 }
